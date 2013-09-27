@@ -21,13 +21,13 @@ describe CiCache::CLI do
     its(:archive_path) { should eq(Pathname("#{path}/bundle_cache.tar.gz"))}
     its(:old_hash_file) { should eq(Pathname("#{path}/bundle_cache.sha2"))}
     its(:hash_file) { should eq(Pathname("Gemfile").expand_path) }
-    its(:hash_file) { should eq(Pathname("Gemfile").expand_path) }
+    its(:content) { should eq(Pathname("~/.bundle_cache")) }
   end
 
   describe "::run" do
     context "when get is used" do
       let(:get) { double "get" }
-      subject { CiCache::CLI.run(["get"]) }
+      subject { CiCache::CLI.run(["get", "--name", "cached"]) }
 
       it "should execute the get command" do
         CiCache::Get.should_receive(:new).with(instance_of(CiCache::CLI)).and_return(get)
@@ -39,7 +39,7 @@ describe CiCache::CLI do
 
     context "when set is used" do
       let(:set) { double "set" }
-      subject { CiCache::CLI.run(["set"]) }
+      subject { CiCache::CLI.run(["set", "--name", "cached"]) }
 
       it "should execute the set command" do
         CiCache::Set.should_receive(:new).with(instance_of(CiCache::CLI)).and_return(set)

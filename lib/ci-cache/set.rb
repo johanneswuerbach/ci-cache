@@ -25,8 +25,9 @@ module CiCache
     end
 
     def archive_files
+      dirname, basename = content.split
       log "Archive: #{content} ~> #{archive_path}"
-      CiCache.shell("tar -cjf #{archive_path} #{content}")
+      CiCache.shell("tar -C #{dirname} -cjf #{archive_path} #{basename}")
     end
 
     def content_has_changed?

@@ -14,7 +14,7 @@ describe CiCache::Set do
       context.stub(:hash_file).and_return("Gemfile")
       context.stub(:archive_path).and_return("~/archive.tar.gz")
       context.stub(:old_hash_file).and_return("~/cache.sha2")
-      context.stub(:content).and_return("~/.bundle_cache")
+      context.stub(:content).and_return(Pathname("~/.bundle_cache"))
       context.stub(:log)
 
       storage.stub(:upload)
@@ -23,7 +23,7 @@ describe CiCache::Set do
 
     context "when content has changed" do
       it "archives the folder" do
-        CiCache.should_receive(:shell).with("tar -cjf ~/archive.tar.gz ~/.bundle_cache")
+        CiCache.should_receive(:shell).with("tar -C ~ -cjf ~/archive.tar.gz .bundle_cache")
         subject
       end
 

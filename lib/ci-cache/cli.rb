@@ -37,14 +37,14 @@ module CiCache
       print "\ntravis_fold:end:ci-cache.#{fold_count}\r" if options[:fold]
     end
 
-    def content
-      error("No valid content provided") unless options[:content]
-      options[:content]
-    end
-
     def name
       error("No valid name provided") unless options[:name]
       options[:name]
+    end
+
+    def content
+      error("No valid content provided") unless options[:content]
+      Pathname(options[:content])
     end
 
     def hash_file
