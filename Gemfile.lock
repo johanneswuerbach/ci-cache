@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ci-cache (1.0.0)
+    ci-cache (0.9.9)
       aws-sdk
 
 GEM

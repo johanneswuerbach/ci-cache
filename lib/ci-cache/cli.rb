@@ -8,16 +8,14 @@ module CiCache
       new(argv).run
     end
 
-    attr_reader :options, :argv, :path
-    attr_accessor :options, :fold_count
-    attr_accessor :command, :client
+    attr_reader :options, :argv
+    attr_accessor :fold_count, :command
 
     VALID_COMMANDS = ['get', 'set']
 
     def initialize(argv = nil)
       @argv    = argv || ARGV
       @options = {}
-      @path    = []
       self.fold_count = 0
     end
 
@@ -146,6 +144,10 @@ module CiCache
 
           opt.on('--output-path OUTPUT_PATH', 'path the archive should be extracted to') do |output_path|
             options[:output_path] = output_path
+          end
+
+          opt.on('--fold', 'fold output on travis') do |fold|
+            options[:fold] = fold
           end
 
           opt.on('-h','--help','help') do
