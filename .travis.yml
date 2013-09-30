@@ -6,9 +6,9 @@ rvm:
 - rbx-19mode
 deploy:
   provider: rubygems
-  api_key:
-    secure: XMfj0fh0v8byvY67GtTLIeJcxEpmt7WBOTF9fmsEsWv6Wq2ZYeWdlLxgK042FTB7IkFYVF6EsA4zmOFKZkMpypwROj0cwTEeoA/5DjukowVc2KwpRLXMCUBeatRD9U63A8gq3CVrS7t5emo4trxb6lH+x3HIgF5Ef4n8Sj+MWJM=
   gem: ci-cache
   on:
     tags: true
     repo: johanneswuerbach/ci-cache
+  api_key:
+    secure: AMbQe7WSmP/41Fi9XCHlTF+qxlPhbTSu9/6r7FUPK3b5lFoegdiQCyFw1QdKHtBHW8Rcjb7MyDKehlnnUhNbO6jA5ioccfLCZsvc3mh3Ce5HO0xhJiN9sZ+7Odt5Xgj1OPrMPeyt3bV5J84MwUrrRhP2EOwrfSArJnWaFdAJ/dc=
