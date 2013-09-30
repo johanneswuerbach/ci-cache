@@ -16,8 +16,18 @@ describe CiCache::Storage do
     subject { storage.download(name, folder) }
 
     context "when the object exists" do
+
       it "downloads the object" do
-        storage.should_receive(:bucket_object).and_return(object)
+        storage.should_receive(:bucket_object).with(name).and_return(object)
+        object.should_receive(:read).and_yield("chunk")
+        handle.should_receive(:write).with("chunk")
+        File.should_receive(:open).with("~/file", "wb").and_yield(handle)
+        subject
+      end
+
+      it "uses a defined prefix" do
+        storage.should_receive(:prefix).and_return("my-repo/")
+        storage.should_receive(:bucket_object).with("my-repo/" + name).and_return(object)
         object.should_receive(:read).and_yield("chunk")
         handle.should_receive(:write).with("chunk")
         File.should_receive(:open).with("~/file", "wb").and_yield(handle)
@@ -38,7 +48,14 @@ describe CiCache::Storage do
     subject { storage.upload(name, "content") }
 
     it "uploads the content" do
-      storage.should_receive(:bucket_object).and_return(object)
+      storage.should_receive(:bucket_object).with(name).and_return(object)
+      object.should_receive(:write).with("content")
+      subject
+    end
+
+    it "uses a defined prefix" do
+      storage.should_receive(:prefix).and_return("my-repo/")
+      storage.should_receive(:bucket_object).with("my-repo/" + name).and_return(object)
       object.should_receive(:write).with("content")
       subject
     end

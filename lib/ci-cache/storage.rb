@@ -9,8 +9,9 @@ module CiCache
 
     def download(name, tmp_folder)
       target_file = "#{tmp_folder}/#{name}"
-      log "Download: #{name} ~> #{target_file}"
-      object = bucket_object(name)
+      prefixed_name = prefixed_name(name)
+      log "Download: #{prefixed_name} ~> #{target_file}"
+      object = bucket_object(prefixed_name)
       File.open(target_file, 'wb') do |file|
         object.read do |chunk|
            file.write(chunk)
@@ -21,12 +22,17 @@ module CiCache
     end
 
     def upload(name, content)
-      log "Upload: #{name}"
-      object = bucket_object(name)
+      prefixed_name = prefixed_name(name)
+      log "Upload: #{prefixed_name}"
+      object = bucket_object(prefixed_name)
       object.write(content)
     end
 
     private
+
+    def prefixed_name(name)
+      prefix + name
+    end
 
     def log(message)
       @context.log(message)
@@ -34,6 +40,10 @@ module CiCache
 
     def bucket_name
       ENV["CI_CACHE_S3_BUCKET"]
+    end
+
+    def prefix
+      ENV["CI_CACHE_S3_PREFIX"] || ""
     end
 
     def configure_aws
