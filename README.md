@@ -1,8 +1,36 @@
 # ci-cache [![Build Status](https://travis-ci.org/johanneswuerbach/ci-cache.png?branch=master)](https://travis-ci.org/johanneswuerbach/ci-cache)
 
-Cache files and folders between continues integration builds for faster build execution.
+Cache files and folders between continues integration builds for faster build execution. Usable with Travis CI and others.
+
+### Usage
+
+#### Configuration
+The ci-cache uses environment variables to receive the AWS config.
+```bash
+CI_CACHE_S3_BUCKET="cache-bucket"
+CI_CACHE_S3_PREFIX="prefix-for-files/"
+CI_CACHE_S3_KEY="aws-key"
+CI_CACHE_S3_SECRET="aws-secret"
+```
+
+#### Download cached file / folder
+```bash
+ci-cache get --name cache-key --output-path .
+```
+
+#### Upload cached file / folder
+```
+ci-cache set --name cache-key --content cache-folder --hash-file version.lock
+```
+The cached is only re-uploaded, if the `hash-file` has changed.
 
 ### Examples (Travis CI)
+
+You should encrypt your AWS credentials 
+```
+travis encrypt CI_CACHE_S3_KEY=AWS_KEY CI_CACHE_S3_SECRET=AWS_SECRET --add
+```
+
 
 #### Bundler
 
