@@ -47,7 +47,7 @@ env:
   - CI_CACHE_S3_KEY="cache-aws-key"
   - CI_CACHE_S3_SECRET="cache-aws-secret"
 before_install:
-- gem install ci-cache --no-ri --no-rdoc
+- travis_retry gem install ci-cache --no-ri --no-rdoc
 - ci-cache get --name bundler-cache --output-path ~
 after_script:
 - bundle clean
@@ -67,7 +67,7 @@ env:
   - CI_CACHE_S3_KEY="cache-aws-key"
   - CI_CACHE_S3_SECRET="cache-aws-secret"
 before_install:
-- gem install ci-cache --no-ri --no-rdoc
+- travis_retry gem install ci-cache --no-ri --no-rdoc
 - ci-cache get --name node_modules --output-path .
 - npm prune
 after_script:
@@ -87,10 +87,11 @@ env:
   - CI_CACHE_S3_KEY="cache-aws-key"
   - CI_CACHE_S3_SECRET="cache-aws-secret"
 before_install:
-- gem install ci-cache --no-ri --no-rdoc
+- travis_retry gem install ci-cache --no-ri --no-rdoc
 - ci-cache get --name bower_components --output-path app
-- npm install -g bower
+- travis_retry npm install -g bower
 - bower prune
+- travis_retry bower install
 after_script:
 - ci-cache set --name bower_components --content app/bower_components --hash-file bower.json
 ```
