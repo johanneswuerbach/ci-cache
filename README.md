@@ -1,5 +1,4 @@
-# ci-cache [![Build Status](https://travis-ci.org/johanneswuerbach/ci-cache.png?branch=master)](https://travis-ci.org/johanneswuerbach/ci-cache)
-
+# ci-cache [![Build Status](https://travis-ci.org/johanneswuerbach/ci-cache.png?branch=master)](https://travis-ci.org/johanneswuerbach/ci-cache) [![Code Climate](https://codeclimate.com/github/johanneswuerbach/ci-cache.png)](https://codeclimate.com/github/johanneswuerbach/ci-cache)
 Cache files and folders between continues integration builds for faster build execution. Usable with Travis CI and others.
 
 ### Usage
