@@ -1,14 +1,18 @@
 language: ruby
 rvm:
 - 1.9.3
-- 2.0.0
-- jruby-19mode
-- rbx-19mode
+- "2.0"
+- "2.1"
+- "2.2"
+- jruby
+- rbx-2
 deploy:
   provider: rubygems
   gem: ci-cache
   on:
+    ruby: "2.2"
     tags: true
     repo: johanneswuerbach/ci-cache
   api_key:
     secure: AMbQe7WSmP/41Fi9XCHlTF+qxlPhbTSu9/6r7FUPK3b5lFoegdiQCyFw1QdKHtBHW8Rcjb7MyDKehlnnUhNbO6jA5ioccfLCZsvc3mh3Ce5HO0xhJiN9sZ+7Odt5Xgj1OPrMPeyt3bV5J84MwUrrRhP2EOwrfSArJnWaFdAJ/dc=
+sudo: false
